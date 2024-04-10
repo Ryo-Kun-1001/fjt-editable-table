@@ -1,4 +1,4 @@
-import React,{useState}from "react";
+import React from "react";
 import{
   Table,
   Thead,
@@ -6,13 +6,11 @@ import{
   Tr,
   Th,
   Td,
-  Input,
-  IconButton,
 }from '@chakra-ui/react'
 function EditableTable() {
   const data = [
-    { id: 1, deadline: '4月11日', tasuku: 'Todoアプリ完成', },
-    { id: 2, deadline: '4月12日', tasuku: 'コードの説明会', },
+    { id: 1, deadline: '4月11日', task: 'Todoアプリ完成', },
+    { id: 2, deadline: '4月12日', task: 'コードの説明会', },
   ];
 
   return(
@@ -34,16 +32,13 @@ function EditableTable() {
             {row.deadline}
           </Td>
           <Td>
-            {row.tasuku}
+            {row.task}
           </Td>
         </Tr>
         ))}
       </Tbody>
     
     </Table>
-  
-  
-  
   </>)
 }
 export default EditableTable;
