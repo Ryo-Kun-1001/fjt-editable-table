@@ -1,10 +1,35 @@
-import React from 'react';
-import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Input,
+  IconButton,
+} from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
+
 function EditableTable() {
-  const data = [
-    { id: 1, deadline: '4月11日', task: 'Todoアプリ完成' },
-    { id: 2, deadline: '4月12日', task: 'コードの説明会' },
-  ];
+  const [data, setData] = useState([
+    { id: 1, deadline: '2024-04-11T10:54', task: 'Todoアプリ完成' },
+    { id: 2, deadline: '2024-04-12T10:54', task: 'コードの説明会' },
+  ]);
+  const [newDeadline, setNewDeadline] = useState('');
+  const [newTask, setNewTask] = useState('');
+
+  const handleAddRow = () => {
+    const newId = data.length > 0 ? Math.max(...data.map(d => d.id)) + 1 : 1;
+    const newRow = {
+      id: newId,
+      deadline: newDeadline,
+      task: newTask,
+    };
+    setData([...data, newRow]);
+    setNewDeadline('');
+    setNewTask('');
+  };
 
   return (
     <>
@@ -16,6 +41,33 @@ function EditableTable() {
           <Th></Th>
         </Thead>
         <Tbody>
+          <Tr>
+            <Td></Td>
+            <Td>
+              <Input
+                placeholder="期限"
+                size="md"
+                type="datetime-local"
+                value={newDeadline}
+                onChange={e => setNewDeadline(e.target.value)}
+              />
+            </Td>
+            <Td>
+              <Input
+                placeholder="タスク内容"
+                value={newTask}
+                onChange={e => setNewTask(e.target.value)}
+              />
+            </Td>
+            <Td>
+              <IconButton
+                aria-label="追加"
+                icon={<AddIcon />}
+                onClick={handleAddRow}
+              />
+            </Td>
+            <Td></Td>
+          </Tr>
           {data.map(row => (
             <Tr key={row.id}>
               <Td>{row.id}</Td>
