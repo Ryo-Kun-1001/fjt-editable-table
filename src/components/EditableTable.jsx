@@ -113,7 +113,7 @@ function EditableTable() {
               <Td>
                 <Input
                   value={row.task}
-                  onChange={e => handleInputChangeTask(e, row.id, 'task')}
+                  onChange={e => handleInputChangeTask(e, row.id)}
                 />
               </Td>
               <Td>
