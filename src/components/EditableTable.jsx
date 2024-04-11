@@ -9,7 +9,7 @@ import {
   Input,
   IconButton,
 } from '@chakra-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
+import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 
 function EditableTable() {
   const [data, setData] = useState([
@@ -29,6 +29,10 @@ function EditableTable() {
     setData([...data, newRow]);
     setNewDeadline('');
     setNewTask('');
+  };
+
+  const handleRemoveRows = id => {
+    setData(data.filter(item => item.id !== id));
   };
 
   return (
@@ -66,6 +70,7 @@ function EditableTable() {
                 onClick={handleAddRow}
               />
             </Td>
+
             <Td></Td>
           </Tr>
           {data.map(row => (
@@ -73,6 +78,13 @@ function EditableTable() {
               <Td>{row.id}</Td>
               <Td>{row.deadline}</Td>
               <Td>{row.task}</Td>
+              <Td>
+                <IconButton
+                  aria-label="行を削除"
+                  icon={<DeleteIcon />}
+                  onClick={() => handleRemoveRows(row.id)}
+                />
+              </Td>
             </Tr>
           ))}
         </Tbody>
