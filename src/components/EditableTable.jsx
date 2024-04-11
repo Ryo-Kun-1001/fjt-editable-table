@@ -30,6 +30,15 @@ function EditableTable() {
     setNewDeadline('');
     setNewTask('');
   };
+  const handleInputChange = (e, id, fieldName) => {
+    const newData = data.map(item => {
+      if (item.id === id) {
+        return { ...item, [fieldName]: e.target.value };
+      }
+      return item;
+    });
+    setData(newData);
+  };
 
   const handleRemoveRows = id => {
     setData(data.filter(item => item.id !== id));
@@ -76,8 +85,18 @@ function EditableTable() {
           {data.map(row => (
             <Tr key={row.id}>
               <Td>{row.id}</Td>
-              <Td>{row.deadline}</Td>
-              <Td>{row.task}</Td>
+              <Td>
+                <Input
+                  value={row.deadline}
+                  onChange={e => handleInputChange(e, row.id, 'deadline')}
+                />
+              </Td>
+              <Td>
+                <Input
+                  value={row.task}
+                  onChange={e => handleInputChange(e, row.id, 'task')}
+                />
+              </Td>
               <Td>
                 <IconButton
                   aria-label="行を削除"
