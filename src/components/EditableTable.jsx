@@ -30,10 +30,29 @@ function EditableTable() {
     setNewDeadline('');
     setNewTask('');
   };
-  const handleInputChange = (e, id, fieldName) => {
+
+  const handleInputChangeDeadline = (e, id) => {
     const newData = data.map(item => {
       if (item.id === id) {
-        return { ...item, [fieldName]: e.target.value };
+        return {
+          id: item.id,
+          deadline: e.target.value,
+          task: item.task,
+        };
+      }
+      return item;
+    });
+    setData(newData);
+  };
+
+  const handleInputChangeTask = (e, id) => {
+    const newData = data.map(item => {
+      if (item.id === id) {
+        return {
+          id: item.id,
+          deadline: item.deadline,
+          task: e.target.value,
+        };
       }
       return item;
     });
@@ -88,13 +107,13 @@ function EditableTable() {
               <Td>
                 <Input
                   value={row.deadline}
-                  onChange={e => handleInputChange(e, row.id, 'deadline')}
+                  onChange={e => handleInputChangeDeadline(e, row.id)}
                 />
               </Td>
               <Td>
                 <Input
                   value={row.task}
-                  onChange={e => handleInputChange(e, row.id, 'task')}
+                  onChange={e => handleInputChangeTask(e, row.id, 'task')}
                 />
               </Td>
               <Td>
