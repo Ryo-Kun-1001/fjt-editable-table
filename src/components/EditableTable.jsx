@@ -31,12 +31,12 @@ function EditableTable() {
     setNewTask('');
   };
 
-  const handleInputChangeDeadline = (e, id) => {
+  const handleInputChangeDeadline = (value, id) => {
     const newData = data.map(item => {
       if (item.id === id) {
         return {
           id: item.id,
-          deadline: e.target.value,
+          deadline: value,
           task: item.task,
         };
       }
@@ -45,13 +45,13 @@ function EditableTable() {
     setData(newData);
   };
 
-  const handleInputChangeTask = (e, id) => {
+  const handleInputChangeTask = (value, id) => {
     const newData = data.map(item => {
       if (item.id === id) {
         return {
           id: item.id,
           deadline: item.deadline,
-          task: e.target.value,
+          task: value,
         };
       }
       return item;
@@ -98,8 +98,6 @@ function EditableTable() {
                 onClick={handleAddRow}
               />
             </Td>
-
-            <Td></Td>
           </Tr>
           {data.map(row => (
             <Tr key={row.id}>
@@ -107,13 +105,16 @@ function EditableTable() {
               <Td>
                 <Input
                   value={row.deadline}
-                  onChange={e => handleInputChangeDeadline(e, row.id)}
+                  type="datetime-local"
+                  onChange={e =>
+                    handleInputChangeDeadline(e.target.value, row.id)
+                  }
                 />
               </Td>
               <Td>
                 <Input
                   value={row.task}
-                  onChange={e => handleInputChangeTask(e, row.id)}
+                  onChange={e => handleInputChangeTask(e.target.value, row.id)}
                 />
               </Td>
               <Td>
